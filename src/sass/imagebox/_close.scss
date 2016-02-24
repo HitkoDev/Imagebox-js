@@ -1,0 +1,39 @@
+#ibCloseLink {
+    @extend .ib-hover-animated;
+    
+	display: inline-block;
+	float: right;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 0.8 * $base-font-size;
+    line-height: $base-font-size;
+	margin: -#{$base-font-size/6} -#{$base-font-size/6} 0.5*$base-font-size 0.5*$base-font-size;
+	opacity: 1;
+	color: inherit;
+    
+    @include transition-delay(inherit);
+}
+
+#ibCloseLink:hover,
+#ibCloseLink:focus {
+	opacity: 1 !important;
+	text-decoration: none;
+    color: $primary-light;
+}
+
+#ibCloseText {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#ibCloseLink i {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.5 * $base-font-size;
+	padding-left: 4px;
+}
+
+#ibBottomContainer.visible:hover #ibCloseLink,
+#ibBottomContainer.visible:focus #ibCloseLink {
+	opacity: 0.5;
+}

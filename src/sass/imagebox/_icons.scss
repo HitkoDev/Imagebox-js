@@ -1,0 +1,47 @@
+//
+// Icon Font: Imagebox
+//
+
+@font-face {
+  font-family: "Imagebox";
+  src: url("/font/Imagebox.eot");
+  src: url("/font/Imagebox.eot?#iefix") format("embedded-opentype"),
+       url("/font/Imagebox.woff") format("woff"),
+       url("/font/Imagebox.ttf") format("truetype"),
+       url("/font/Imagebox.svg#Imagebox") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Imagebox";
+    src: url("/font/Imagebox.svg#Imagebox") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.ib-icon, [class^="ib-icon-"], [class*=" ib-icon-"] {
+  display: inline-block;
+  font-family: "Imagebox";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.ib-icon-close:before { content: "\f100"; }
+.ib-icon-next:before { content: "\f101"; }
+.ib-icon-prev:before { content: "\f102"; }
+
+$font-Imagebox-close: "\f100";
+$font-Imagebox-next: "\f101";
+$font-Imagebox-prev: "\f102";

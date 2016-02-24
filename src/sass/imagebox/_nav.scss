@@ -1,0 +1,43 @@
+#ibPrev, 
+#ibNext {
+    @extend .ib-hover-animated;
+    
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 50%;
+	z-index: 10;
+	color: #ffffff;
+	opacity: 0;
+	cursor: pointer;
+    
+	@include text-shadow(0 0 0.3em rgba(0, 0, 0, 0.75));
+    
+    i {
+	   font-size: 3 * $base-font-size;
+    }
+}
+
+#ibPrev:hover, 
+#ibPrev:focus, 
+#ibNext:hover,
+#ibNext:focus {
+	opacity: 1;
+}
+
+#ibPrev,
+#ibPrev i {
+	left: 0;
+}
+
+#ibNext,
+#ibNext i {
+	right: 0;
+}
+
+#ibPrev i, 
+#ibNext i {
+	position: absolute;
+	top: 40%;
+	margin-top: -0.5em;
+}

@@ -1,0 +1,21 @@
+@import "compass/css3";
+
+$primary-color: #005723;
+$primary-light: #84d1a4;
+$overlay-opacity: 0.7;
+$transition-duration: 0.5s;
+$hover-duration: 0.2s;
+$base-font-size: 24px;
+
+@import "helpers";
+
+@import "imagebox/overlay";
+@import "imagebox/wrap";
+@import "imagebox/center";
+@import "imagebox/responsive";
+@import "imagebox/image";
+@import "imagebox/nav";
+@import "imagebox/bottom";
+@import "imagebox/caption";
+@import "imagebox/close";
+@import "imagebox/icons";

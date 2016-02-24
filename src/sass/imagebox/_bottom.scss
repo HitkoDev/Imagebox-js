@@ -1,0 +1,37 @@
+#ibBottomContainer {
+	width: 100%;
+	position: absolute;
+	max-height: 0;
+	overflow: hidden;
+	background-color: #000;
+	opacity: 0.5;
+	pointer-events: all;
+	z-index: 5;
+	color: #ffffff;
+    
+	@include box-shadow(0px 0px 40px -5px #000);
+}
+
+#ibBottomContainer.visible {
+	max-height: 200px;
+    
+	@include transition(opacity $transition-duration .1s ease-in-out);
+}
+
+#ibBottomContainer.visible:hover,
+#ibBottomContainer.visible:focus {
+	opacity: 1;
+    
+	@include transition-delay(0s);
+}
+
+#ibBottom {
+    @include box-sizing(border-box);
+    
+	position: relative;
+	width: 100%;
+	padding: 2/3*$base-font-size 2/3*$base-font-size 0;
+	text-align: left;
+	font-weight: 400;
+	font-size: 0.625*$base-font-size;
+}

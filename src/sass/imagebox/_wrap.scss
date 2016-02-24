@@ -1,0 +1,22 @@
+#ibWrap {
+    position: absolute;
+	z-index: 9999;
+	left: 0;
+	top: 0;
+	height: 100%;
+	visibility: hidden;
+	pointer-events: none;
+	width: 100%;
+    
+    @include display-flex(flex);
+    @include justify-content(center);
+    @include align-items(center);
+}
+
+#ibWrap.visible {
+	visibility: visible;
+}
+
+#ibWrap.animating {
+	overflow: hidden;
+}

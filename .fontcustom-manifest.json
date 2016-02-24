@@ -1,0 +1,56 @@
+{
+  "checksum": {
+    "previous": "a78eedbecc9a326787bfcd12734bc25b823993dc085fecd9d74d8d77d432c7b1",
+    "current": "a78eedbecc9a326787bfcd12734bc25b823993dc085fecd9d74d8d77d432c7b1"
+  },
+  "fonts": [
+    "./___tmp___/Imagebox.ttf",
+    "./___tmp___/Imagebox.svg",
+    "./___tmp___/Imagebox.woff",
+    "./___tmp___/Imagebox.eot"
+  ],
+  "glyphs": {
+    "close": {
+      "codepoint": 61696,
+      "source": "/srv/htdocs/Imagebox-js/src/icons/close.svg"
+    },
+    "next": {
+      "codepoint": 61697,
+      "source": "/srv/htdocs/Imagebox-js/src/icons/next.svg"
+    },
+    "prev": {
+      "codepoint": 61698,
+      "source": "/srv/htdocs/Imagebox-js/src/icons/prev.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": false,
+    "css_selector": ".ib-icon-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "Imagebox",
+    "force": true,
+    "input": {
+      "templates": "/srv/htdocs/Imagebox-js/src/icons",
+      "vectors": "/srv/htdocs/Imagebox-js/src/icons"
+    },
+    "no_hash": true,
+    "output": {
+      "css": "./___tmp___",
+      "fonts": "./___tmp___",
+      "preview": "./___tmp___"
+    },
+    "preprocessor_path": "/font",
+    "quiet": false,
+    "templates": [
+      "_icons.scss"
+    ]
+  },
+  "templates": [
+    "./___tmp___/_icons.scss"
+  ]
+}

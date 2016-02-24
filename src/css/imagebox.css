@@ -1,0 +1,294 @@
+.ib-hover-animated, #ibPrev,
+#ibNext, #ibCloseLink {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.ib-line-fix {
+  white-space: nowrap;
+  max-width: 100%;
+  display: inline-block;
+}
+
+#ibOverlay {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  visibility: hidden;
+  background-color: #000;
+  opacity: 0;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#ibOverlay.visible {
+  visibility: visible;
+  opacity: 0.7;
+}
+
+#ibWrap {
+  position: absolute;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  height: 100%;
+  visibility: hidden;
+  pointer-events: none;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+#ibWrap.visible {
+  visibility: visible;
+}
+
+#ibWrap.animating {
+  overflow: hidden;
+}
+
+#ibCenter {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+}
+
+#ibContent {
+  position: relative;
+  display: block;
+}
+
+#ibResponsive {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #000000;
+  pointer-events: all;
+  z-index: 10;
+  -moz-box-shadow: 0px 0px 40px -5px #000;
+  -webkit-box-shadow: 0px 0px 40px -5px #000;
+  box-shadow: 0px 0px 40px -5px #000;
+}
+
+#ibImage, #ibBgImage {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  float: left;
+  z-index: 5;
+  background-size: 100% 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+#ibBgImage {
+  z-index: 3;
+}
+
+#ibBgImage.loading {
+  background-image: url("/images/spinner.svg");
+  background-size: 48px 48px;
+}
+
+#ibPrev,
+#ibNext {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 10;
+  color: #ffffff;
+  opacity: 0;
+  cursor: pointer;
+  text-shadow: 0 0 0.3em rgba(0, 0, 0, 0.75);
+}
+#ibPrev i,
+#ibNext i {
+  font-size: 72px;
+}
+
+#ibPrev:hover,
+#ibPrev:focus,
+#ibNext:hover,
+#ibNext:focus {
+  opacity: 1;
+}
+
+#ibPrev,
+#ibPrev i {
+  left: 0;
+}
+
+#ibNext,
+#ibNext i {
+  right: 0;
+}
+
+#ibPrev i,
+#ibNext i {
+  position: absolute;
+  top: 40%;
+  margin-top: -0.5em;
+}
+
+#ibBottomContainer {
+  width: 100%;
+  position: absolute;
+  max-height: 0;
+  overflow: hidden;
+  background-color: #000;
+  opacity: 0.5;
+  pointer-events: all;
+  z-index: 5;
+  color: #ffffff;
+  -moz-box-shadow: 0px 0px 40px -5px #000;
+  -webkit-box-shadow: 0px 0px 40px -5px #000;
+  box-shadow: 0px 0px 40px -5px #000;
+}
+
+#ibBottomContainer.visible {
+  max-height: 200px;
+  -moz-transition: opacity 0.5s ease-in-out 0.1s;
+  -o-transition: opacity 0.5s ease-in-out 0.1s;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -webkit-transition-delay: 0.1s;
+  transition: opacity 0.5s ease-in-out 0.1s;
+}
+
+#ibBottomContainer.visible:hover,
+#ibBottomContainer.visible:focus {
+  opacity: 1;
+  -moz-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+
+#ibBottom {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  padding: 16px 16px 0;
+  text-align: left;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+#ibCounter {
+  display: block;
+  font-style: italic;
+  margin-bottom: 5px;
+  font-weight: 300;
+}
+
+#ibCaption {
+  margin-bottom: 15px;
+  display: block;
+  font-weight: 500;
+}
+
+#ibCloseLink {
+  display: inline-block;
+  float: right;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 19.2px;
+  line-height: 24px;
+  margin: -4px -4px 12px 12px;
+  opacity: 1;
+  color: inherit;
+  -moz-transition-delay: inherit;
+  -o-transition-delay: inherit;
+  -webkit-transition-delay: inherit;
+  transition-delay: inherit;
+}
+
+#ibCloseLink:hover,
+#ibCloseLink:focus {
+  opacity: 1 !important;
+  text-decoration: none;
+  color: #84d1a4;
+}
+
+#ibCloseText {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#ibCloseLink i {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 36px;
+  padding-left: 4px;
+}
+
+#ibBottomContainer.visible:hover #ibCloseLink,
+#ibBottomContainer.visible:focus #ibCloseLink {
+  opacity: 0.5;
+}
+
+@font-face {
+  font-family: "Imagebox";
+  src: url("/font/Imagebox.eot");
+  src: url("/font/Imagebox.eot?#iefix") format("embedded-opentype"), url("/font/Imagebox.woff") format("woff"), url("/font/Imagebox.ttf") format("truetype"), url("/font/Imagebox.svg#Imagebox") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @font-face {
+    font-family: "Imagebox";
+    src: url("/font/Imagebox.svg#Imagebox") format("svg");
+  }
+}
+[data-icon]:before {
+  content: attr(data-icon);
+}
+
+[data-icon]:before,
+.ib-icon, [class^="ib-icon-"], [class*=" ib-icon-"] {
+  display: inline-block;
+  font-family: "Imagebox";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.ib-icon-close:before {
+  content: "\f100";
+}
+
+.ib-icon-next:before {
+  content: "\f101";
+}
+
+.ib-icon-prev:before {
+  content: "\f102";
+}

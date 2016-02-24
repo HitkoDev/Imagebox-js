@@ -1,0 +1,9 @@
+.ib-hover-animated {
+    @include transition(all $hover-duration ease-in-out);
+}
+
+.ib-line-fix {
+	white-space: nowrap;
+	max-width: 100%;
+	display: inline-block;
+}

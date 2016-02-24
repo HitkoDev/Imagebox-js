@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2016-2-24: Created.
+-->
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>
+Created by FontForge 20120731 at Wed Feb 24 09:50:11 2016
+ By root
+Created by root with FontForge 2.0 (http://fontforge.sf.net)
+</metadata>
+<defs>
+<font id="Imagebox" horiz-adv-x="512" >
+  <font-face 
+    font-family="Imagebox"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="512"
+    panose-1="2 0 6 3 0 0 0 0 0 0"
+    ascent="448"
+    descent="-64"
+    bbox="106.667 42.667 405.333 341.333"
+    underline-thickness="25.6"
+    underline-position="-51.2"
+    unicode-range="U+0020-F102"
+  />
+    <missing-glyph />
+    <glyph glyph-name="space" unicode=" " horiz-adv-x="200" 
+ />
+    <glyph glyph-name="uniF100" unicode="&#xf100;" 
+d="M405.333 311.253v-0.212891l-119.04 -119.04l119.04 -119.04v-0.212891l-30.0801 -30.0801h-0.212891l-119.04 119.04l-119.04 -119.04h-0.212891l-30.0801 30.0801v0.212891l119.04 119.04l-119.04 119.04v0.212891l30.0801 30.0801h0.212891l119.04 -119.04
+l119.04 119.04h0.212891z" />
+    <glyph glyph-name="uniF102" unicode="&#xf102;" 
+d="M298.667 64l-128 128l128 128l30.0801 -30.0801l-97.9209 -97.9199l97.9209 -97.9199z" />
+    <glyph glyph-name="uniF101" unicode="&#xf101;" 
+d="M213.333 320l128 -128l-128 -128l-30.0801 30.0801l97.9209 97.9199l-97.9209 97.9199z" />
+  </font>
+</defs></svg>
