@@ -14,6 +14,7 @@ interface ibOptions {
     nextKeys?: Array<number>,
     doubleClickTimeout?: number,
     loop?: boolean,
+    root?: HTMLElement,
     animation?: {
         duration?: number,
         iterations?: number,
@@ -105,6 +106,7 @@ interface HTMLDivElement {
             nextKeys: [39, 78],
             loop: false,
             doubleClickTimeout: 200,
+            root: $("body")[0],
             animation: {
                 duration: 600,
                 iterations: 1,
@@ -142,10 +144,11 @@ interface HTMLDivElement {
                 filteredLinks.push(linkMapper(links[i], i));
             }
 
+            $.extend(options, defaults, _options);
             target.toggleClass('ib-line-fix', true);		//	fix multi-line targets
             var origin: ibOrigin = {
-                x: target.offset().left - win.scrollLeft() + target.innerWidth() / 2,
-                y: target.offset().top - win.scrollTop() + target.innerHeight() / 2,
+                x: target.offset().left - $(options.root).offset().left + target.innerWidth() / 2,
+                y: target.offset().top - $(options.root).offset().top + target.innerHeight() / 2,
                 width: target.innerWidth(),
                 height: target.innerHeight(),
             };
@@ -213,6 +216,7 @@ interface HTMLDivElement {
     function setup(origin: ibOrigin) {
         $(closeText).html(options.lang.close);
         $([overlay, close]).attr('title', options.lang.close);
+        $(options.root).append([overlay, wrap]);
         $(prev).attr('title', options.lang.prev);
         $(next).attr('title', options.lang.next);
         $(center).css('padding', options.padding);
@@ -248,8 +252,8 @@ interface HTMLDivElement {
         });
 
         $(wrap).css({
-            top: win.scrollTop(),
-            left: win.scrollLeft()
+            top: $(options.root).scrollTop(),
+            left: $(options.root).scrollLeft()
         });
 
         var anim: webAnimation = image.animate([{
@@ -359,25 +363,21 @@ interface HTMLDivElement {
         };
     }
 
-    function setMaxWidth(width: number, callback?: () => any, animate:boolean = true) {
+    function setMaxWidth(width: number, callback?: () => any) {
         width += 2 * options.padding;
-        if(animate){
-            var anim = center.animate([{
-                'max-width': $(center).css('max-width')
-            }, {
+        var anim = center.animate([{
+            'max-width': $(center).css('max-width')
+        }, {
                 'max-width': width + 'px'
             }], options.animation);
-            anim.addEventListener('finish', function() {
-                $(center).css('max-width', width);
-                if (typeof callback == 'function') callback();
-            });
-            animations.push(anim);
-        } else {
+        anim.addEventListener('finish', function() {
             $(center).css('max-width', width);
-        }
+            if (typeof callback == 'function') callback();
+        });
+        animations.push(anim);
     }
 
-    $("body").append(
+    $(defaults.root).append(
         $([
             overlay = <HTMLDivElement>$('<div id="ibOverlay" />').click($.ibClose)[0],
             wrap = <HTMLDivElement>$('<div id="ibWrap" />')[0]
@@ -388,8 +388,8 @@ interface HTMLDivElement {
         responsive = <HTMLDivElement>$('<div id="ibResponsive" />').append([
             bgImage = <HTMLDivElement>$('<div id="ibBgImage" />')[0],
             image = <HTMLDivElement>$('<div id="ibImage" />')[0],
-            prev = <HTMLDivElement>$('<div id="ibPrev"><i class="ib-icon-prev"></i></div>').on('click', prevImage)[0],
-            next = <HTMLDivElement>$('<div id="ibNext"><i class="ib-icon-next"></i></div>').on('click', nextImage)[0]
+            prev = <HTMLDivElement>$('<div id="ibPrev" class="ibScrim ibScrim-left ibScrim-20"><i class="ib-icon-prev"></i></div>').on('click', prevImage)[0],
+            next = <HTMLDivElement>$('<div id="ibNext" class="ibScrim ibScrim-right ibScrim-20"><i class="ib-icon-next"></i></div>').on('click', nextImage)[0]
         ])[0],
         bottomContainer = <HTMLDivElement>$('<div id="ibBottomContainer" />')[0],
     ])[0];
@@ -402,10 +402,12 @@ interface HTMLDivElement {
     $(img).on('load', showImage);
 
     win.on("resize", function() {
-        if (activeImage) setMaxWidth(getMaxSize(img.width, img.height, false).width, null, false);
+        if (activeImage) setMaxWidth(getMaxSize(img.width, img.height, false).width);
     });
 
-    $("a[rel^='lightbox']").imagebox({ /* Put custom options here */ }, null, function(el) {
+    $("a[rel^='lightbox']").imagebox({
+        root: $(".mdl-layout.mdl-js-layout")[0]
+    }, null, function(el) {
         return (this == el) || ((this.getAttribute('rel').length > 8) && (this.getAttribute('rel') == el.getAttribute('rel')));
     });
 

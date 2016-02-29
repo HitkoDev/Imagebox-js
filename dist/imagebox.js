@@ -14,6 +14,7 @@
         nextKeys: [39, 78],
         loop: false,
         doubleClickTimeout: 200,
+        root: $("body")[0],
         animation: {
             duration: 600,
             iterations: 1,
@@ -43,10 +44,11 @@
                 }
                 filteredLinks.push(linkMapper(links[i], i));
             }
+            $.extend(options, defaults, _options);
             target.toggleClass('ib-line-fix', true); //	fix multi-line targets
             var origin = {
-                x: target.offset().left - win.scrollLeft() + target.innerWidth() / 2,
-                y: target.offset().top - win.scrollTop() + target.innerHeight() / 2,
+                x: target.offset().left - $(options.root).offset().left + target.innerWidth() / 2,
+                y: target.offset().top - $(options.root).offset().top + target.innerHeight() / 2,
                 width: target.innerWidth(),
                 height: target.innerHeight(),
             };
@@ -104,6 +106,7 @@
     function setup(origin) {
         $(closeText).html(options.lang.close);
         $([overlay, close]).attr('title', options.lang.close);
+        $(options.root).append([overlay, wrap]);
         $(prev).attr('title', options.lang.prev);
         $(next).attr('title', options.lang.next);
         $(center).css('padding', options.padding);
@@ -137,8 +140,8 @@
             'opacity': 0
         });
         $(wrap).css({
-            top: win.scrollTop(),
-            left: win.scrollLeft()
+            top: $(options.root).scrollTop(),
+            left: $(options.root).scrollLeft()
         });
         var anim = image.animate([{
                 opacity: 0
@@ -241,27 +244,21 @@
             height: height
         };
     }
-    function setMaxWidth(width, callback, animate) {
-        if (animate === void 0) { animate = true; }
+    function setMaxWidth(width, callback) {
         width += 2 * options.padding;
-        if (animate) {
-            var anim = center.animate([{
-                    'max-width': $(center).css('max-width')
-                }, {
-                    'max-width': width + 'px'
-                }], options.animation);
-            anim.addEventListener('finish', function () {
-                $(center).css('max-width', width);
-                if (typeof callback == 'function')
-                    callback();
-            });
-            animations.push(anim);
-        }
-        else {
+        var anim = center.animate([{
+                'max-width': $(center).css('max-width')
+            }, {
+                'max-width': width + 'px'
+            }], options.animation);
+        anim.addEventListener('finish', function () {
             $(center).css('max-width', width);
-        }
+            if (typeof callback == 'function')
+                callback();
+        });
+        animations.push(anim);
     }
-    $("body").append($([
+    $(defaults.root).append($([
         overlay = $('<div id="ibOverlay" />').click($.ibClose)[0],
         wrap = $('<div id="ibWrap" />')[0]
     ]));
@@ -270,8 +267,8 @@
         responsive = $('<div id="ibResponsive" />').append([
             bgImage = $('<div id="ibBgImage" />')[0],
             image = $('<div id="ibImage" />')[0],
-            prev = $('<div id="ibPrev"><i class="ib-icon-prev"></i></div>').on('click', prevImage)[0],
-            next = $('<div id="ibNext"><i class="ib-icon-next"></i></div>').on('click', nextImage)[0]
+            prev = $('<div id="ibPrev" class="ibScrim ibScrim-left ibScrim-20"><i class="ib-icon-prev"></i></div>').on('click', prevImage)[0],
+            next = $('<div id="ibNext" class="ibScrim ibScrim-right ibScrim-20"><i class="ib-icon-next"></i></div>').on('click', nextImage)[0]
         ])[0],
         bottomContainer = $('<div id="ibBottomContainer" />')[0],
     ])[0];
@@ -284,9 +281,11 @@
     $(img).on('load', showImage);
     win.on("resize", function () {
         if (activeImage)
-            setMaxWidth(getMaxSize(img.width, img.height, false).width, null, false);
+            setMaxWidth(getMaxSize(img.width, img.height, false).width);
     });
-    $("a[rel^='lightbox']").imagebox({}, null, function (el) {
+    $("a[rel^='lightbox']").imagebox({
+        root: $(".mdl-layout.mdl-js-layout")[0]
+    }, null, function (el) {
         return (this == el) || ((this.getAttribute('rel').length > 8) && (this.getAttribute('rel') == el.getAttribute('rel')));
     });
 })(jQuery);

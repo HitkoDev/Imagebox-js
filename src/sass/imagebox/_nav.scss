@@ -16,6 +16,11 @@
     i {
 	   font-size: 3 * $base-font-size;
     }
+    
+    &:after {
+        width: 9 * $base-font-size;
+        pointer-events: none;
+    }
 }
 
 #ibPrev:hover, 

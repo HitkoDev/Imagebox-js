@@ -13,6 +13,7 @@ interface ibOptions {
     nextKeys?: Array<number>;
     doubleClickTimeout?: number;
     loop?: boolean;
+    root?: HTMLElement;
     animation?: {
         duration?: number;
         iterations?: number;
