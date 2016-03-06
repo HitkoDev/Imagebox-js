@@ -36,7 +36,7 @@
         };
         var links = this;
         return links.unbind("click").click(function (evt) {
-            var link = this, startIndex = 0, filteredLinks = [], target = $($(this).find($(this).attr("data-target"))[0] || this);
+            var link = this, startIndex = 0, filteredLinks = [];
             for (var i = 0; i < links.length; i++) {
                 if (linksFilter.call(link, links[i], i)) {
                     if (links[i] == link)
@@ -44,23 +44,30 @@
                 }
                 filteredLinks.push(linkMapper(links[i], i));
             }
-            $.extend(options, defaults, _options);
-            target.toggleClass('ib-line-fix', true); //	fix multi-line targets
-            var origin = {
-                x: target.offset().left - $(options.root).offset().left + target.innerWidth() / 2,
-                y: target.offset().top - $(options.root).offset().top + target.innerHeight() / 2,
-                width: target.innerWidth(),
-                height: target.innerHeight(),
+            filteredLinks[startIndex].origin = {
+                target: link
             };
-            target.toggleClass('ib-line-fix', false);
-            return $.imagebox(filteredLinks, startIndex, _options, origin);
+            return $.imagebox(filteredLinks, startIndex, _options);
         });
     };
-    $.imagebox = function (_images, startImage, _options, origin) {
+    $.imagebox = function (_images, startImage, _options) {
         $.extend(options, defaults, _options);
         images = _images;
-        setup(origin);
-        changeImage(startImage, origin);
+        setup();
+        if (_images[startImage].origin && _images[startImage].origin.target) {
+            var link = _images[startImage].origin.target;
+            var target = $($(link).find($(link).attr("data-target"))[0] || link);
+            var bw = wrap.getBoundingClientRect();
+            var bt = target[0].getBoundingClientRect();
+            target.toggleClass('ib-line-fix', true);
+            _images[startImage].origin.x = _images[startImage].origin.x || (bt.left - bw.left + target.innerWidth() / 2);
+            _images[startImage].origin.y = _images[startImage].origin.y || (bt.top - bw.top + target.innerHeight() / 2);
+            _images[startImage].origin.width = _images[startImage].origin.width || target.innerWidth();
+            _images[startImage].origin.height = _images[startImage].origin.height || target.innerHeight();
+            target.toggleClass('ib-line-fix', false);
+        }
+        $(center).css('max-width', getMaxSize(_images[startImage].origin ? _images[startImage].origin.width : options.initialSize, _images[startImage].origin ? _images[startImage].origin.height : options.initialSize, false).width + 2 * options.padding);
+        changeImage(startImage);
         return false;
     };
     $.ibClose = function () {
@@ -72,7 +79,7 @@
         $(document).off("keydown", keyDown);
         return false;
     };
-    function changeImage(i, origin) {
+    function changeImage(i) {
         if (i < 0 || i >= images.length)
             return false;
         stop();
@@ -83,8 +90,8 @@
         $(caption).html(activeImage.title);
         $(counter).html((((images.length > 1) && options.lang.counter) || "").replace(/{x}/, (activeImage.index + 1) + '').replace(/{y}/, images.length + ''));
         var centerOrigin = {
-            top: (origin ? -($(wrap).innerHeight() / 2 - origin.y) : 0) + 'px',
-            left: (origin ? -($(wrap).innerWidth() / 2 - origin.x) : 0) + 'px'
+            top: (activeImage.origin ? -($(wrap).innerHeight() / 2 - activeImage.origin.y) : 0) + 'px',
+            left: (activeImage.origin ? -($(wrap).innerWidth() / 2 - activeImage.origin.x) : 0) + 'px'
         };
         var centerTarget = {
             top: '0px',
@@ -103,7 +110,7 @@
         animations.push(anim);
         return false;
     }
-    function setup(origin) {
+    function setup() {
         $(closeText).html(options.lang.close);
         $([overlay, close]).attr('title', options.lang.close);
         $(options.root).append([overlay, wrap]);
@@ -113,9 +120,12 @@
         $(bgImage).toggleClass('loading', true);
         $(bgImage).css('background-image', '');
         $(image).css('opacity', 0);
-        $(center).css('max-width', getMaxSize(origin ? origin.width : options.initialSize, origin ? origin.height : options.initialSize, false).width + 2 * options.padding);
         $([prev, next]).hide();
         $(document).on("keydown", keyDown);
+        $(wrap).css({
+            top: $(options.root).scrollTop(),
+            left: $(options.root).scrollLeft()
+        });
     }
     function showImage() {
         if (!open)
@@ -283,8 +293,11 @@
         if (activeImage)
             setMaxWidth(getMaxSize(img.width, img.height, false).width);
     });
+    var r = $(".mdl-layout.mdl-js-layout")[0];
+    if (!r)
+        r = $("body")[0];
     $("a[rel^='lightbox']").imagebox({
-        root: $(".mdl-layout.mdl-js-layout")[0]
+        root: r
     }, null, function (el) {
         return (this == el) || ((this.getAttribute('rel').length > 8) && (this.getAttribute('rel') == el.getAttribute('rel')));
     });

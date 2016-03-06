@@ -25,12 +25,14 @@ interface ibImage {
     url: string;
     title: string;
     index: number;
+    origin?: ibOrigin;
 }
 interface ibOrigin {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    target: HTMLElement;
 }
 interface ibSize {
     width: number;
@@ -40,7 +42,7 @@ interface JQuery {
     imagebox(_options: ibOptions, linkMapper?: (el: HTMLElement, i: number) => ibImage, linksFilter?: (el: HTMLElement, i: number) => boolean): JQuery;
 }
 interface JQueryStatic {
-    imagebox(_images: Array<ibImage>, startImage: number, _options: ibOptions, origin: ibOrigin): boolean;
+    imagebox(_images: Array<ibImage>, startImage: number, _options: ibOptions): boolean;
     ibClose(): boolean;
 }
 interface webAnimation {
