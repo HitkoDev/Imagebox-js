@@ -204,6 +204,7 @@ interface HTMLDivElement {
             top: (activeImage.origin ? -($(wrap).innerHeight() / 2 - activeImage.origin.y) : 0) + 'px',
             left: (activeImage.origin ? -($(wrap).innerWidth() / 2 - activeImage.origin.x) : 0) + 'px'
         };
+        activeImage.origin = undefined;
         var centerTarget = {
             top: '0px',
             left: '0px'
