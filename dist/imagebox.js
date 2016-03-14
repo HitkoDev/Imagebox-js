@@ -269,37 +269,39 @@
         });
         animations.push(anim);
     }
-    $(defaults.root).append($([
-        overlay = $('<div id="ibOverlay" />').click($.ibClose)[0],
-        wrap = $('<div id="ibWrap" />')[0]
-    ]));
-    center = $('<div id="ibCenter" />').appendTo(wrap)[0];
-    content = $('<div id="ibContent" />').appendTo(center).append([
-        responsive = $('<div id="ibResponsive" />').append([
-            bgImage = $('<div id="ibBgImage" />')[0],
-            image = $('<div id="ibImage" />')[0],
-            prev = $('<div id="ibPrev" class="ibScrim ibScrim-left ibScrim-20"><i class="ib-icon-prev"></i></div>').on('click', prevImage)[0],
-            next = $('<div id="ibNext" class="ibScrim ibScrim-right ibScrim-20"><i class="ib-icon-next"></i></div>').on('click', nextImage)[0]
-        ])[0],
-        bottomContainer = $('<div id="ibBottomContainer" />')[0],
-    ])[0];
-    bottom = $('<div id="ibBottom" />').appendTo(bottomContainer).append([
-        close = $('<a id="ibCloseLink" href="#" ><span id="ibCloseText"></span><i class="ib-icon-close"></i></a>').click($.ibClose)[0],
-        counter = $('<small id="ibCounter" />')[0],
-        caption = $('<strong id="ibCaption" />')[0]
-    ])[0];
-    closeText = $(bottom).find('#ibCloseText')[0];
-    $(img).on('load', showImage);
-    win.on("resize", function () {
-        if (activeImage)
-            setMaxWidth(getMaxSize(img.width, img.height, false).width);
-    });
-    var r = $(".mdl-layout.mdl-js-layout")[0];
-    if (!r)
-        r = $("body")[0];
-    $("a[rel^='lightbox']").imagebox({
-        root: r
-    }, null, function (el) {
-        return (this == el) || ((this.getAttribute('rel').length > 8) && (this.getAttribute('rel') == el.getAttribute('rel')));
+    $(window).on('load', function () {
+        $(defaults.root).append($([
+            overlay = $('<div id="ibOverlay" />').click($.ibClose)[0],
+            wrap = $('<div id="ibWrap" />')[0]
+        ]));
+        center = $('<div id="ibCenter" />').appendTo(wrap)[0];
+        content = $('<div id="ibContent" />').appendTo(center).append([
+            responsive = $('<div id="ibResponsive" />').append([
+                bgImage = $('<div id="ibBgImage" />')[0],
+                image = $('<div id="ibImage" />')[0],
+                prev = $('<div id="ibPrev" class="ibScrim ibScrim-left ibScrim-20"><i class="ib-icon-prev"></i></div>').on('click', prevImage)[0],
+                next = $('<div id="ibNext" class="ibScrim ibScrim-right ibScrim-20"><i class="ib-icon-next"></i></div>').on('click', nextImage)[0]
+            ])[0],
+            bottomContainer = $('<div id="ibBottomContainer" />')[0],
+        ])[0];
+        bottom = $('<div id="ibBottom" />').appendTo(bottomContainer).append([
+            close = $('<a id="ibCloseLink" href="#" ><span id="ibCloseText"></span><i class="ib-icon-close"></i></a>').click($.ibClose)[0],
+            counter = $('<small id="ibCounter" />')[0],
+            caption = $('<strong id="ibCaption" />')[0]
+        ])[0];
+        closeText = $(bottom).find('#ibCloseText')[0];
+        $(img).on('load', showImage);
+        win.on("resize", function () {
+            if (activeImage)
+                setMaxWidth(getMaxSize(img.width, img.height, false).width);
+        });
+        var r = $(".mdl-layout.mdl-js-layout")[0];
+        if (!r)
+            r = $("body")[0];
+        $("a[rel^='lightbox']").imagebox({
+            root: r
+        }, null, function (el) {
+            return (this == el) || ((this.getAttribute('rel').length > 8) && (this.getAttribute('rel') == el.getAttribute('rel')));
+        });
     });
 })(jQuery);
