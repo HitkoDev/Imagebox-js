@@ -10,8 +10,7 @@
 	color: #ffffff;
 	opacity: 0;
 	cursor: pointer;
-    
-	@include text-shadow(0 0 0.3em rgba(0, 0, 0, 0.75));
+    text-shadow: 0 0 0.3em rgba(0, 0, 0, 0.75);
     
     i {
 	   font-size: 3 * $base-font-size;

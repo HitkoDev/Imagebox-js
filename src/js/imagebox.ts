@@ -218,9 +218,7 @@ interface HTMLDivElement {
         var anim = center.animate([
             centerOrigin, centerTarget
         ], options.animation);
-        anim.addEventListener('finish', function() {
-            $(center).css(centerTarget);
-        });
+        $(center).css(centerTarget);
         animations.push(anim);
 
         return false;
@@ -238,10 +236,7 @@ interface HTMLDivElement {
         $(image).css('opacity', 0);
         $([prev, next]).hide();
         $(document).on("keydown", keyDown);
-        $(wrap).css({
-            top: $(options.root).scrollTop(),
-            left: $(options.root).scrollLeft()
-        });
+        setBoxPosition(options.root);
     }
 
     function showImage(): boolean {
@@ -266,18 +261,15 @@ interface HTMLDivElement {
             'opacity': 0
         });
 
-        $(wrap).css({
-            top: $(options.root).scrollTop(),
-            left: $(options.root).scrollLeft()
-        });
+        setBoxPosition(options.root);
 
         var anim: webAnimation = image.animate([{
             opacity: 0
         }, {
                 opacity: 1
             }], options.animation);
+        $(image).css('opacity', 1);
         anim.addEventListener('finish', function() {
-            $(image).css('opacity', 1);
             $(bgImage).toggleClass('loading', false);
             $(bgImage).css('background-image', "url('" + img.src + "')");
         });
@@ -288,8 +280,8 @@ interface HTMLDivElement {
                 { 'max-height': '0px' },
                 { 'max-height': '200px' }
             ], options.animation);
+            $(bottomContainer).toggleClass('visible', true);
             anim.addEventListener('finish', function() {
-                $(bottomContainer).toggleClass('visible', true);
                 if (queued != activeImage.index && timeout < 0) {
                     changeImage(queued);
                 } else {
@@ -364,9 +356,7 @@ interface HTMLDivElement {
             var anim: webAnimation = responsive.animate([
                 origin, target
             ], options.animation);
-            anim.addEventListener('finish', function() {
-                $(responsive).css(target);
-            });
+            $(responsive).css(target);
             animations.push(anim);
         } else {
             $(responsive).css(target);
@@ -385,11 +375,25 @@ interface HTMLDivElement {
         }, {
                 'max-width': width + 'px'
             }], options.animation);
+        $(center).css('max-width', width);
         anim.addEventListener('finish', function() {
-            $(center).css('max-width', width);
             if (typeof callback == 'function') callback();
         });
         animations.push(anim);
+    }
+
+    function setBoxPosition(root): void {
+        var pos = $(wrap).position();
+        var rect = $(wrap).offset();
+        var bdy = $('html').offset();
+        if ($(root)[0] != $('body')[0]) {
+            pos.top += $(root).scrollTop();
+            pos.left += $(root).scrollLeft();
+        }
+        $(wrap).css({
+            top: pos.top + bdy.top + window.scrollY - rect.top,
+            left: pos.left + bdy.left + window.scrollX - rect.left
+        });
     }
 
     $(window).on('load', function() {
